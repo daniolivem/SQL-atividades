@@ -1,35 +1,40 @@
 SELECT name FROM world
   WHERE population >
-     (SELECT population FROM world
-      WHERE name='Russia')
+    (SELECT population FROM world
+     WHERE name = 'Russia');
 
 
 SELECT name FROM world
-  WHERE continent = 'europe' 
-and gdp/population >
-     (SELECT gdp/population FROM world
-      WHERE name='United Kingdom');
+  WHERE continent = 'europe'
+    AND gdp/population >
+      (SELECT gdp/population FROM world
+       WHERE name = 'United Kingdom');
 
 
-select name, continent
-from world
-where continent in (
-select continent
-from world
-where name in ('Argentina', 'Australia')
+SELECT name, continent
+FROM world
+WHERE continent IN (
+  SELECT continent
+  FROM world
+  WHERE name IN ('Argentina', 'Australia')
 )
-order by name;
+ORDER BY name;
+
 
 SELECT name, population
 FROM world
 WHERE population > (SELECT population FROM world WHERE name = 'United Kingdom')
-AND population < (SELECT population FROM world WHERE name = 'Germany')
+  AND population < (SELECT population FROM world WHERE name = 'Germany')
 ORDER BY name;
 
-select name, 
-       concat(round(100*population/(select population 
-                         from world 
-                         where name = 'germany')) 
-    , '%')
-from world
-where continent ='europe'
+
+SELECT name,
+       CONCAT(ROUND(100 * population / (SELECT population
+                                        FROM world
+                                        WHERE name = 'germany')), '%')
+FROM world
+WHERE continent = 'europe';
+
+
+
+Não consegui as demais questões
