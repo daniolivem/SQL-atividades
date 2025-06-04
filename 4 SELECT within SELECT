@@ -26,3 +26,10 @@ WHERE population > (SELECT population FROM world WHERE name = 'United Kingdom')
 AND population < (SELECT population FROM world WHERE name = 'Germany')
 ORDER BY name;
 
+select name, 
+       concat(round(100*population/(select population 
+                         from world 
+                         where name = 'germany')) 
+    , '%')
+from world
+where continent ='europe'
